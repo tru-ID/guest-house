@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guest Login - Onboarding</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      main {
+        max-width: 330px;
+      }
+    </style>
+  </head>
+  <body class="text-center">
+    <main class="row">
+      <form id="sign-in" method="post" action="/guest-house/onboarding">
+        <h1 class="mb-3">Tell us more about yourself</h1>
+        <div class="col form-floating mb-3">
+          <input
+            class="form-control"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="example@example.com"
+          />
+          <label for="email">Email</label>
+        </div>
+        <% if (locals.error) { %>
+        <p style="color: brown; margin-bottom: 3"><%= error %></p>
+        <% } %>
+        <button
+          id="submit-btn"
+          type="submit"
+          class="mb-3 w-100 btn btn-primary"
+        >
+          <span
+            class="spinner-border spinner-border-sm visually-hidden"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          <span>Submit</span>
+        </button>
+        <% if (locals.canSkip) { %>
+        <button
+          id="skip-btn"
+          type="submit"
+          class="w-100 btn btn-outline-secondary"
+        >
+          Skip
+        </button>
+        <% } %>
+      </form>
+    </main>
+    <script>
+      const form = document.getElementById("sign-in");
+      form.onsubmit = () => {
+        const submitBtn = document.getElementById("submit-btn");
+        const [spinner, textSpan] = submitBtn.children;
+
+        spinner.classList.remove("visually-hidden");
+        textSpan.textContent = "Submitting...";
+      };
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+      integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
